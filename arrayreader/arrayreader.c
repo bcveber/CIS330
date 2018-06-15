@@ -2,6 +2,8 @@
 #include <printf.h>
 #include <stdlib.h>
 
+//reads the first 5x5 of the left corner of an array. 
+
 int main(int argc, char *argv[]){
 
 	FILE *f_in, *f_out;
@@ -17,7 +19,7 @@ int main(int argc, char *argv[]){
 	f_in = fopen(argv[1], "r");
 	f_out = fopen(argv[2], "w");
 
-	int *myArray = malloc(sizeof(int));
+	int *myArray = malloc(sizeof(int)*25);
 
 	for (i=0; i<5; i++){
 
