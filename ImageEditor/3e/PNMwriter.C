@@ -25,4 +25,7 @@ void PNMwriter::Write(char *file)
 
     //close file
     fclose(f_in);
+
+    //clean up
+    img1->Destroy();
 }

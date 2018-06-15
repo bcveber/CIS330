@@ -21,9 +21,11 @@ public:
     int getWidth();
     int getHeight();
     int getMaxVal();
-    Pixel* getBuffer();             //get pointer to image buffer
+    Pixel* getBuffer();              //get pointer to image buffer
     void initialize(int w, int h);   //set new image buffer
     void Update();
+    void Destroy();
+    void Clean();
 };
 
 #endif

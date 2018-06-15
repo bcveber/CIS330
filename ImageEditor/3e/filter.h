@@ -35,7 +35,7 @@ class Blender : public Filter
     double factor;
 
 protected:
-    void Execute();           //execute blender
+    void Execute();            //execute blender
 
   public:
     void SetFactor(double f); //set blending factor

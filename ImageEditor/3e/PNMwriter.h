@@ -6,7 +6,7 @@
 class PNMwriter : public Sink
 {
 public:
-    void Write(char *path);         //write image
+    void Write(char *path);        //write image
 };
 
 #endif

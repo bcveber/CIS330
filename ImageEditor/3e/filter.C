@@ -1,5 +1,8 @@
 #include "filter.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "image.h"
 
 //filter initializer
@@ -22,6 +25,16 @@ void Filter::Update()
 
     //execute current filter
     Execute();
+
+    //cleanup
+
+    //clean source img1
+    if (img1)
+        img1->Clean();
+
+    //clean source img2
+    if (img2)
+        img2->Clean();
 }
 
 //execute shrinker

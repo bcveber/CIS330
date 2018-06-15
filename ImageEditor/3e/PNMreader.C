@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 PNMreader::PNMreader(char* path)
 {
     //copy file path in new array
-    this->file = new char[strlen(path) + 1];
     strcpy(this->file, path);
 
     //set image source
