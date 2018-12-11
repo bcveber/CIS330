@@ -2,7 +2,7 @@
 Coursework done in CIS330 (C/C++ & Unix) at University of Oregon
 
 ## About
-This course revolves around project 3, an object-oriented C++ image editor suite. Has features (filters) such as mirror, blur, and rotate that can be performed on images.
+This course revolves around project 3, an object-oriented C++ image editor suite. Has features (filters) such as mirror, blur, and rotate that can be performed on images. The final version of the image editor can be found under 3H.
 
 ### Project 4: Debugging and Profiling
 * 4B - memory error and leak free
