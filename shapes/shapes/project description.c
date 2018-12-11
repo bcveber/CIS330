@@ -1,1 +1,0 @@
-Calculates area and bounding box sizes for shapes.
