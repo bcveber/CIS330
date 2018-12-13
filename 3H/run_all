@@ -1,0 +1,20 @@
+#!/bin/bash
+
+list=$(cat valid_list)
+
+for i in $list ; do
+   if [[ -f $i/pass ]] ; then
+      echo "Skipping $i (got a pass previously)"
+      continue
+   fi
+   ./run_one $i
+   #./run_one_w_image $i
+   #if [[ -f sandbox/3H.pnm ]] ; then
+      #mv sandbox/3H.pnm sandbox/$i.pnm
+      #pnmtopng sandbox/$i.pnm > sandbox/$i.png
+   #fi
+done
+
+num_passed=$(ls -1 */pass | wc -l)
+num_tests=$(cat valid_list | wc -l)
+echo "You have passed $num_passed out of $num_tests tests."

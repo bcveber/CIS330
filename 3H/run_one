@@ -1,0 +1,79 @@
+#!/bin/bash
+
+if [[ $# != 1 ]] ; then
+   echo "Usage: $0 <username>"
+   exit 1
+fi
+
+if [[ ! -d $1 ]] ; then
+   echo "Cannot locate user $1"
+   echo "Note that this script must be run from the 3H directory"
+   exit 1
+fi
+ 
+if [[ -f $1/no_pass ]] ; then
+   rm $1/no_pass
+fi
+
+if [[ ! -f $1/stress_test.C ]] ; then
+   echo "Cannot locate stress test $1/stress_test.C"
+   echo "Note that this script must be run from the 3H directory"
+   exit 1
+fi
+ 
+echo "Running $1..."
+
+cd sandbox
+rm -f stress_test.C my_checksum my_exception *.o
+ln -s ../${1}/stress_test.C .
+make
+./stress_test $1
+
+if [[ -f my_checksum ]] ; then
+    if [[ ! -f ../$1/checksum ]] ; then
+       echo "Mismatch for $1"
+       echo "You produced a valid image and a checksum, but master produced an exception"
+       touch ../$1/nopass
+    else
+       diff my_checksum ../$1/checksum 2>&1 > /dev/null
+       if [[ $? == 0 ]] ; then
+           passed=1
+       fi
+        
+       if [[ $passed == 1 ]] ; then
+           echo "Pass for $1"
+           touch ../$1/pass
+       else
+           echo "Mismatch for $1"
+           echo -n "You have: "
+           cat my_checksum
+           if [[ -f ../$1/checksum ]] ; then
+               echo -n "But master has: "
+               cat ../$1/checksum
+           fi
+           touch ../$1/nopass
+       fi
+    fi
+    exit 0
+elif [[ -f my_exception ]] ; then
+    if [[ ! -f ../$1/exception ]] ; then
+           echo "You have an exception but Master produces a valid image and has a checksum"
+    else
+       diff my_exception ../$1/exception 2>&1 > /dev/null
+       if [[ $? == 0 ]] ; then
+           echo "Pass for $1"
+           touch ../$1/pass
+       else
+          echo "Mismatch for $1"
+          echo -n "You have: "
+          cat my_exception
+          echo -n "But master has: "
+          cat ../$1/exception
+          touch ../$1/nopass
+       fi
+    fi
+    exit 0
+else
+    echo "Could not find checksum or exception .. crash?"
+    exit 1
+fi
